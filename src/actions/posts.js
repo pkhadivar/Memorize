@@ -1,13 +1,13 @@
 import * as api from "../api";
 
 export const getPosts = () => async (dispatch) => {
-  console.log('Here....')
+  console.log("Here....");
   try {
     const fetchResult = await api.fetchPosts();
-    console.log(fetchResult)
+    console.log(fetchResult);
     dispatch({ type: "FETCH_ALL", payload: fetchResult.data });
   } catch (error) {
-    console.error('Error: getPsts():', error);
+    console.error("Error: getPsts():", error);
   }
 };
 
@@ -20,3 +20,23 @@ export const createPost = (post) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const updatePost = (id, post) => async (dispatch) => {
+  try {
+    const { data } = await api.updatePost(id, post);
+
+    dispatch({ type: "UPDATE", payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await api.deletePost(id);
+
+    dispatch({ type: "DELETE", payload: id});
+
+  } catch (error) {
+    console.log(error);
+  }
+}
